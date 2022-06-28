@@ -8,7 +8,7 @@
 #  This program is distributed in the hope that it will be useful, but
 #  WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-#  General Public License for more details.
+#  General Public License for more.
 #
 #  License can be found in < https://github.com/vasusen-code/VIDEOconvertor/blob/public/LICENSE> .
 
@@ -94,13 +94,13 @@ async def encode(event, msg, scale=0):
     progress = f"progress-{FT}.txt"
     cmd = ''
     if scale == 240:
-        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -c:v libx264 -pix_fmt yuv420p -preset ultrafast -s 426x240 -crf 18 -c:a libopus -ac 2 -ab 128k -c:s copy """{out}""" -y'
+        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -preset medium -pix_fmt yuv420p10le -profile:v main10 -level 5.1 -c:v libx265 -x265-params "deblock=-1,-1:ref=4:psy_rd=1:bframes=6:b-adapt=2:b-pyramid=0:bframe-bias=0:crf=20:crf-max=23:aq-mode=3:aq-strength=1.0:psy-rdoq=1:psy_rd=1:psnr=no:no-info=1" -vf scale=-1:240 -c:a libopus -ac 2 -ab 128k -c:s copy """{out}""" -y'
     elif scale == 360:
-        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -c:v libx264 -pix_fmt yuv420p -preset ultrafast -s 640x360 -crf 20 -c:a libopus -ac 2 -ab 128k -c:s copy """{out}""" -y'
+        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -preset medium -pix_fmt yuv420p10le -profile:v main10 -level 5.1 -c:v libx265 -x265-params "deblock=-1,-1:ref=4:psy_rd=1:bframes=6:b-adapt=2:b-pyramid=0:bframe-bias=0:crf=20:crf-max=23:aq-mode=3:aq-strength=1.0:psy-rdoq=1:psy_rd=1:psnr=no:no-info=1" -vf scale=-1:360 -c:a libopus -ac 2 -ab 128k -c:s copy """{out}""" -y'
     elif scale == 480:
-        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -c:v libx264 -pix_fmt yuv420p -preset ultrafast -s 854x480 -crf 23 -c:a libopus -ac 2 -ab 128k -c:s copy """{out}""" -y'
+        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -preset medium -pix_fmt yuv420p10le -profile:v main10 -level 5.1 -c:v libx265 -x265-params "deblock=-1,-1:ref=4:psy_rd=1:bframes=6:b-adapt=2:b-pyramid=0:bframe-bias=0:crf=20:crf-max=23:aq-mode=3:aq-strength=1.0:psy-rdoq=1:psy_rd=1:psnr=no:no-info=1" -vf scale=-1:480 -c:a libopus -ac 2 -ab 128k -c:s copy """{out}""" -y'
     elif scale == 720:
-        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -c:v libx264 -pix_fmt yuv420p -preset ultrafast -s 1280x720 -crf 27 -c:a libopus -ac 2 -ab 128k -c:s copy """{out}""" -y'
+        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -preset medium -pix_fmt yuv420p10le -profile:v main10 -level 5.1 -c:v libx265 -x265-params "deblock=-1,-1:ref=4:psy_rd=1:bframes=6:b-adapt=2:b-pyramid=0:bframe-bias=0:crf=20:crf-max=23:aq-mode=3:aq-strength=1.0:psy-rdoq=1:psy_rd=1:psnr=no:no-info=1" -vf scale=-1:720 -c:a libopus -ac 2 -ab 128k -c:s copy """{out}""" -y'
     try:
         await ffmpeg_progress(cmd, name, progress, FT, edit, ps_name, log=log)
     except Exception as e:
